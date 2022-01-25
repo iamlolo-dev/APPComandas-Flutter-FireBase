@@ -1,10 +1,17 @@
 import 'package:duc_project/pages/home_page.dart';
-import 'package:duc_project/pages/login/boss.dart';
-import 'package:duc_project/pages/login/employee.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:duc_project/providers/routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
+}
+
+Future firebaseUsuario() async {
+  final usuario = FirebaseAuth.instance.currentUser;
+  return usuario;
 }
 
 class MyApp extends StatelessWidget {
@@ -19,12 +26,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const MyHomePage(),
-        '/boss': (context) => const BossPage(),
-        '/employee': (context) => const EmployeePage(),
-      },
+      home: FutureBuilder(
+        future: Firebase.initializeApp(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return const MyHomePage();
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      ),
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }

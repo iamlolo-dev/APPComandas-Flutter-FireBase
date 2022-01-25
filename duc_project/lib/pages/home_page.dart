@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:duc_project/providers/routes.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () => {},
+                  onPressed: () => Navigator.pushNamed(context, '/employee'),
                   child: const Text("Employee"),
                   style: TextButton.styleFrom(
                     primary: Colors.white,
