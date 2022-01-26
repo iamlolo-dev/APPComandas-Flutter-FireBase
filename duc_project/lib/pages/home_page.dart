@@ -1,5 +1,6 @@
+import 'package:duc_project/pages/login/boss.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:duc_project/providers/routes.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -23,7 +24,9 @@ class MyHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 TextButton(
-                  onPressed: () => Navigator.pushNamed(context, '/boss'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/boss');
+                  },
                   child: const Text("Boss"),
                   style: TextButton.styleFrom(
                     primary: Colors.white,
