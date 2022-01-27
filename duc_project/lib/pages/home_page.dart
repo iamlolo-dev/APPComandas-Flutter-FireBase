@@ -1,4 +1,5 @@
 import 'package:duc_project/pages/login/boss.dart';
+import 'package:duc_project/pages/login/employee.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,16 @@ class MyHomePage extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/boss');
+                    FutureBuilder(
+                      future: firebaseInitialized(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return const BossPage();
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      },
+                    );
                   },
                   child: const Text("Boss"),
                   style: TextButton.styleFrom(
@@ -47,5 +57,10 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future firebaseInitialized() async {
+    final inicio = await Firebase.initializeApp();
+    return inicio;
   }
 }
