@@ -25,6 +25,16 @@ class MyHomePage extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
+                    FutureBuilder(
+                        future: firebaseInitialized(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return const BossPage();
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
+                        });
                     Navigator.pushNamed(context, '/boss');
                   },
                   child: const Text("Boss"),
@@ -47,5 +57,10 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future firebaseInitialized() async {
+    final inicio = await Firebase.initializeApp();
+    return inicio;
   }
 }

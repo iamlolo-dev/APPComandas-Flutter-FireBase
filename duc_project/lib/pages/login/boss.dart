@@ -23,6 +23,7 @@ class _BossPageState extends State<BossPage> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               width: 350,
@@ -60,35 +61,35 @@ class _BossPageState extends State<BossPage> {
                 },
               ),
             ),
-            // TextButton(
-            //   onPressed: () async {
-            //     try {
-            //       final user = await auth.signInWithEmailAndPassword(
-            //           email: email, password: password);
-            //       // ignore: unnecessary_null_comparison
-            //       if (user != null) {
-            //         Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //             builder: (context) {
-            //               return const MyHomePage();
-            //             },
-            //           ),
-            //         );
-            //       }
-            //     } catch (e) {
-            //       Fluttertoast.showToast(
-            //           msg: e.toString(),
-            //           toastLength: Toast.LENGTH_SHORT,
-            //           gravity: ToastGravity.CENTER,
-            //           timeInSecForIosWeb: 1,
-            //           backgroundColor: Colors.red,
-            //           textColor: Colors.white,
-            //           fontSize: 16.0);
-            //     }
-            //   },
-            //   child: const Text("Start!"),
-            // ),
+            TextButton(
+              onPressed: () async {
+                try {
+                  final user = await auth.signInWithEmailAndPassword(
+                      email: email, password: password);
+                  // ignore: unnecessary_null_comparison
+                  if (user != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const MyHomePage();
+                        },
+                      ),
+                    );
+                  }
+                } catch (e) {
+                  Fluttertoast.showToast(
+                      msg: e.toString(),
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+                }
+              },
+              child: const Text("Start!"),
+            ),
           ],
         ),
       ),
