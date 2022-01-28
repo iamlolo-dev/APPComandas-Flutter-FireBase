@@ -1,4 +1,5 @@
 import 'package:duc_project/providers/auth_service.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -99,6 +100,13 @@ class _BossCheckState extends State<BossCheck> {
                         backgroundColor: Colors.red,
                       ),
                     );
+                  } else if (!EmailValidator.validate(emailController.text)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Try with a correct mail!"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
                   } else {
                     User? result = await AuthService().registerUser(
                         emailController.text, passwordController.text);
@@ -112,7 +120,7 @@ class _BossCheckState extends State<BossCheck> {
               ),
               TextButton(
                   onPressed: () {},
-                  child: Text("You already have an account? Click here."))
+                  child: const Text("You already have an account? Click here."))
             ],
           ),
         ));
