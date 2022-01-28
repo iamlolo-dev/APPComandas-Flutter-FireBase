@@ -1,4 +1,4 @@
-import 'package:duc_project/pages/login/boss/boss_chek.dart';
+import 'package:duc_project/pages/login/boss/boss_check.dart';
 import 'package:duc_project/pages/login/boss/boss_login.dart';
 import 'package:duc_project/pages/login/boss/home_page.dart';
 import 'package:duc_project/pages/login/employee.dart';
