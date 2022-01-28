@@ -21,6 +21,7 @@ class _BossLoginState extends State<BossLogin> {
         appBar: AppBar(
           title: const Text("Boss"),
           centerTitle: true,
+          automaticallyImplyLeading: false,
         ),
         body: Center(
           child: Column(
@@ -76,6 +77,7 @@ class _BossLoginState extends State<BossLogin> {
                     if (result != null) {
                       print('Success');
                       print(result.email);
+                      Navigator.pushNamed(context, '/homepage');
                     }
                   }
                 },

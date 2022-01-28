@@ -22,6 +22,7 @@ class _BossCheckState extends State<BossCheck> {
         appBar: AppBar(
           title: const Text("Boss"),
           centerTitle: true,
+          automaticallyImplyLeading: false,
         ),
         body: Center(
           child: Column(
@@ -113,13 +114,16 @@ class _BossCheckState extends State<BossCheck> {
                     if (result != null) {
                       print('Success');
                       print(result.email);
+                      Navigator.pushNamed(context, '/homepage');
                     }
                   }
                 },
                 child: const Text("Submit"),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/bosslogin');
+                  },
                   child: const Text("You already have an account? Click here."))
             ],
           ),
