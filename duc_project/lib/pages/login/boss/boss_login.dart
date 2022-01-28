@@ -2,14 +2,14 @@ import 'package:duc_project/providers/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class BossCheck extends StatefulWidget {
-  const BossCheck({Key? key}) : super(key: key);
+class BossLogin extends StatefulWidget {
+  const BossLogin({Key? key}) : super(key: key);
 
   @override
-  State<BossCheck> createState() => _BossCheckState();
+  State<BossLogin> createState() => _BossLoginState();
 }
 
-class _BossCheckState extends State<BossCheck> {
+class _BossLoginState extends State<BossLogin> {
   FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -26,10 +26,6 @@ class _BossCheckState extends State<BossCheck> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Image(
-                image: AssetImage('assets/Duclogo.jpeg'),
-              ),
-              const Divider(),
               SizedBox(
                 width: 350,
                 height: 70,
@@ -64,23 +60,6 @@ class _BossCheckState extends State<BossCheck> {
                   ),
                 ),
               ),
-              SizedBox(
-                width: 350,
-                height: 70,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  controller: confirmPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Confirm password',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               ElevatedButton(
                 onPressed: () async {
                   if (emailController.text == "" ||
@@ -91,16 +70,8 @@ class _BossCheckState extends State<BossCheck> {
                         backgroundColor: Colors.red,
                       ),
                     );
-                  } else if (passwordController.text !=
-                      confirmPasswordController.text) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Passwords don`t match!"),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
                   } else {
-                    User? result = await AuthService().registerUser(
+                    User? result = await AuthService().signInUser(
                         emailController.text, passwordController.text);
                     if (result != null) {
                       print('Success');
@@ -108,11 +79,12 @@ class _BossCheckState extends State<BossCheck> {
                     }
                   }
                 },
-                child: const Text("Submit"),
+                child: const Text("Go!"),
               ),
               TextButton(
                   onPressed: () {},
-                  child: Text("You already have an account? Click here."))
+                  child:
+                      const Text("You already haven`t an account? Click here."))
             ],
           ),
         ));
