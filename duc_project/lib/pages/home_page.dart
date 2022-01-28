@@ -1,4 +1,4 @@
-import 'package:duc_project/pages/login/boss.dart';
+import 'package:duc_project/pages/login/boss/boss_chek.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ class MyHomePage extends StatelessWidget {
               image: AssetImage('assets/Duclogo.jpeg'),
             ),
             const Divider(),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 TextButton(
@@ -30,12 +30,11 @@ class MyHomePage extends StatelessWidget {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
-                            return const BossPage();
+                            return const BossCheck();
                           } else {
                             return const CircularProgressIndicator();
                           }
                         });
-                    Navigator.pushNamed(context, '/boss');
                   },
                   child: const Text("Boss"),
                   style: TextButton.styleFrom(
