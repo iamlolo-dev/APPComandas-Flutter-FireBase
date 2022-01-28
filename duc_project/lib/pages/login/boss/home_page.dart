@@ -20,7 +20,9 @@ class HomePage extends StatelessWidget {
             ),
             title: const Text("Tapeo"),
             trailing: const Icon(Icons.navigate_next_outlined),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/tapeo');
+            },
           ),
           const Divider(),
           ListTile(
