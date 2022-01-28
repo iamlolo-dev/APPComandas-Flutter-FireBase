@@ -1,5 +1,5 @@
 import 'package:duc_project/pages/login/boss.dart';
-import 'package:duc_project/pages/login/employee.dart';
+import 'package:duc_project/pages/login/boss/boss_chek.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class MyHomePage extends StatelessWidget {
               image: AssetImage('assets/Duclogo.jpeg'),
             ),
             const Divider(),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 TextButton(
