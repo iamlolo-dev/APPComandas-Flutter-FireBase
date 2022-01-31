@@ -26,9 +26,9 @@ class HallPage extends StatelessWidget {
               ],
             ),
           ),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
-              const BossLogin(),
+              BossLogin(),
               EmployeePage(),
             ],
           ),

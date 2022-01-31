@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'boss/home_page.dart';
+
 class EmployeePage extends StatefulWidget {
-  EmployeePage({Key? key}) : super(key: key);
+  const EmployeePage({Key? key}) : super(key: key);
 
   @override
   State<EmployeePage> createState() => _EmployeePageState();
@@ -37,6 +39,12 @@ class _EmployeePageState extends State<EmployeePage> {
               ),
             ),
           ),
+          const Divider(),
+          ElevatedButton(
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePage())),
+            child: const Text("Go!"),
+          )
         ],
       ),
     );

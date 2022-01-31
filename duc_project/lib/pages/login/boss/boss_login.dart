@@ -1,3 +1,5 @@
+import 'package:duc_project/pages/bosshome.dart';
+import 'package:duc_project/pages/login/boss/boss_check.dart';
 import 'package:duc_project/providers/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -75,14 +77,20 @@ class _BossLoginState extends State<BossLogin> {
                 if (result != null) {
                   print('Success');
                   print(result.email);
-                  Navigator.pushNamed(context, '/homepage');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BossHome(),
+                    ),
+                  );
                 }
               }
             },
             child: const Text("Go!"),
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const BossCheck())),
               child: const Text("You already haven`t an account? Click here."))
         ],
       ),
