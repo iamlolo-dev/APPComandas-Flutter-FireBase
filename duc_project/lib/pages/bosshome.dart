@@ -14,7 +14,13 @@ class BossHome extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [],
+          children: [
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text('Add a new Employee'),
+              onTap: () {},
+            ),
+          ],
         ),
       ),
     );
