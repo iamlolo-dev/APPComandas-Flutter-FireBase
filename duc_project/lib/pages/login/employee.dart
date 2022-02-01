@@ -41,8 +41,14 @@ class _EmployeePageState extends State<EmployeePage> {
           ),
           const Divider(),
           ElevatedButton(
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HomePage())),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            },
             child: const Text("Go!"),
           )
         ],

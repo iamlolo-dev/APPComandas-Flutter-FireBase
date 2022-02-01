@@ -113,7 +113,7 @@ class _BossCheckState extends State<BossCheck> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const BossHome(),
+                      builder: (context) => BossHome(),
                     ),
                   );
                 }

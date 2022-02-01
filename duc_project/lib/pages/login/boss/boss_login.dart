@@ -80,7 +80,7 @@ class _BossLoginState extends State<BossLogin> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const BossHome(),
+                      builder: (context) => BossHome(),
                     ),
                   );
                 }
