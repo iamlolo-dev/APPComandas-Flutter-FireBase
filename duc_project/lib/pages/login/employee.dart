@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'boss/home_page.dart';
@@ -10,6 +11,9 @@ class EmployeePage extends StatefulWidget {
 }
 
 class _EmployeePageState extends State<EmployeePage> {
+  final _firestore = FirebaseFirestore.instance;
+  var sRef;
+  List<String> num = ["id"];
   final TextEditingController numController = TextEditingController();
 
   @override
@@ -42,6 +46,11 @@ class _EmployeePageState extends State<EmployeePage> {
           const Divider(),
           ElevatedButton(
             onPressed: () {
+              try {
+                for (var i = 0; i < num.length; i++) {
+                  sRef = firestore.collection("users").get("id");
+                }
+              } catch (e) {}
               Navigator.push(
                 context,
                 MaterialPageRoute(
