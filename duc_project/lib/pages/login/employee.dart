@@ -48,7 +48,7 @@ class _EmployeePageState extends State<EmployeePage> {
             onPressed: () {
               try {
                 for (var i = 0; i < num.length; i++) {
-                  sRef = firestore.collection("users").get("id");
+                  sRef = _firestore.collection("users").get();
                 }
               } catch (e) {}
               Navigator.push(

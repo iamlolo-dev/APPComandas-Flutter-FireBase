@@ -12,9 +12,13 @@ class BossHome extends StatefulWidget {
 
 class _BossHomeState extends State<BossHome> {
   final firestoreInstance = FirebaseFirestore.instance;
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+
   final opciones = [];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   TextEditingController nameController = TextEditingController();
   TextEditingController numController = TextEditingController();
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,6 @@ class _BossHomeState extends State<BossHome> {
               actions: [
                 ElevatedButton(
                   onPressed: () {
-                    var firebaseUser = FirebaseAuth.instance.currentUser;
                     firestoreInstance.collection("users").add(
                       {
                         "name": nameController.text,
@@ -113,4 +116,24 @@ class _BossHomeState extends State<BossHome> {
       ),
     );
   }
+
+  // void datosEmployee(BuildContext context) async {
+  //   StreamBuilder(
+  //     stream: Firestore.instance.collection("users").snapshots(),
+  //     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+  //       if (!snapshot.hasData) return const CircularProgressIndicator();
+  //       return ListView.builder(
+  //         itemCount: snapshot.data?.docChanges.length,
+  //         itemBuilder: (BuildContext context, int index) {
+  //           return new Card(
+  //             child: Column(children: <Widget>[
+  //               new Text("Name: ${snapshot.data.docChanges[index].title}"),
+  //               new Text("Id: ${snapshot.data.documents[index].id}")
+  //             ],),
+  //           )
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 }
