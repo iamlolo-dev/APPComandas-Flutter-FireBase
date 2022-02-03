@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -12,13 +13,11 @@ class BossHome extends StatefulWidget {
 
 class _BossHomeState extends State<BossHome> {
   final firestoreInstance = FirebaseFirestore.instance;
-  var firebaseUser = FirebaseAuth.instance.currentUser;
+  final Stream<QuerySnapshot> users =
+      FirebaseFirestore.instance.collection('users').snapshots();
 
-  final opciones = [];
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
   TextEditingController nameController = TextEditingController();
   TextEditingController numController = TextEditingController();
-  CollectionReference users = FirebaseFirestore.instance.collection("users");
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +27,61 @@ class _BossHomeState extends State<BossHome> {
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              child: const Text('Add a new Employee'),
-              onPressed: () {
-                _openDialog(context);
+      body: WillPopScope(
+        child: column(context),
+        onWillPop: () => exit(0),
+      ),
+    );
+  }
+
+  Column column(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          height: 400,
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Scrollbar(
+            isAlwaysShown: true,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: users,
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("An error has ocurred"),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                }
+
+                final data = snapshot.requireData;
+
+                return ListView.builder(
+                    itemCount: data.size,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text("Name: ${data.docs[index]['name']}"),
+                        subtitle: Text("ID: ${data.docs[index]['id']}"),
+                      );
+                    });
               },
             ),
-          ],
+          ),
         ),
-      ),
+        ElevatedButton(
+          child: const Text('Add a new Employee'),
+          onPressed: () {
+            _openDialog(context);
+            numController.clear();
+            nameController.clear();
+          },
+        ),
+      ],
     );
   }
 
@@ -116,24 +157,4 @@ class _BossHomeState extends State<BossHome> {
       ),
     );
   }
-
-  // void datosEmployee(BuildContext context) async {
-  //   StreamBuilder(
-  //     stream: Firestore.instance.collection("users").snapshots(),
-  //     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-  //       if (!snapshot.hasData) return const CircularProgressIndicator();
-  //       return ListView.builder(
-  //         itemCount: snapshot.data?.docChanges.length,
-  //         itemBuilder: (BuildContext context, int index) {
-  //           return new Card(
-  //             child: Column(children: <Widget>[
-  //               new Text("Name: ${snapshot.data.docChanges[index].title}"),
-  //               new Text("Id: ${snapshot.data.documents[index].id}")
-  //             ],),
-  //           )
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
 }

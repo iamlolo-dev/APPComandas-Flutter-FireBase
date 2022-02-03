@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'boss/home_page.dart';
@@ -11,7 +12,9 @@ class EmployeePage extends StatefulWidget {
 }
 
 class _EmployeePageState extends State<EmployeePage> {
-  final _firestore = FirebaseFirestore.instance;
+  final firestoreInstance = FirebaseFirestore.instance;
+  final Stream<QuerySnapshot> users =
+      FirebaseFirestore.instance.collection('users').snapshots();
   var sRef;
   List<String> num = ["id"];
   final TextEditingController numController = TextEditingController();
@@ -46,11 +49,6 @@ class _EmployeePageState extends State<EmployeePage> {
           const Divider(),
           ElevatedButton(
             onPressed: () {
-              try {
-                for (var i = 0; i < num.length; i++) {
-                  sRef = _firestore.collection("users").get();
-                }
-              } catch (e) {}
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -62,6 +60,47 @@ class _EmployeePageState extends State<EmployeePage> {
           )
         ],
       ),
+    );
+  }
+
+  usuario(numController) {
+    StreamBuilder<QuerySnapshot>(
+      stream: users,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("A problem has ocurred"),
+            ),
+          );
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+
+        final data = snapshot.requireData;
+        return ElevatedButton(
+          onPressed: () {
+            for (var i = 0; i < data.size; i++) {
+              if (numController == data.docs[data.size]["id"]) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("The number is not correct."),
+                  ),
+                );
+              }
+            }
+          },
+          child: const Text("Go!"),
+        );
+      },
     );
   }
 }
