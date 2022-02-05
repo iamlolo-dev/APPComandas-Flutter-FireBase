@@ -1,5 +1,10 @@
 import 'dart:io';
 
+import 'package:duc_project/pages/menu/ensalada.dart';
+import 'package:duc_project/pages/menu/hamburguesa.dart';
+import 'package:duc_project/pages/menu/pizza.dart';
+import 'package:duc_project/pages/menu/plato_combinado.dart';
+import 'package:duc_project/pages/menu/sandwich.dart';
 import 'package:duc_project/pages/menu/tapaeo.dart';
 import 'package:flutter/material.dart';
 
@@ -47,35 +52,50 @@ class HomePage extends StatelessWidget {
           ),
           title: const Text("Hamburguesas"),
           trailing: const Icon(Icons.navigate_next_outlined),
-          onTap: () {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const HamburguesaPage()),
+          ),
         ),
         const Divider(),
         ListTile(
           leading: const Icon(Icons.restaurant),
           title: const Text("Ensaladas"),
           trailing: const Icon(Icons.navigate_next_outlined),
-          onTap: () {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const EnsaladaPage()),
+          ),
         ),
         const Divider(),
         ListTile(
           leading: const Icon(Icons.restaurant),
           title: const Text("Sandwiches"),
           trailing: const Icon(Icons.navigate_next_outlined),
-          onTap: () {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SandwichPage()),
+          ),
         ),
         const Divider(),
         ListTile(
           leading: const Icon(Icons.restaurant),
-          title: const Text("Combined dishes"),
+          title: const Text("Platos combinados"),
           trailing: const Icon(Icons.navigate_next_outlined),
-          onTap: () {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CombinadosPage()),
+          ),
         ),
         const Divider(),
         ListTile(
           leading: const Icon(Icons.restaurant),
           title: const Text("Pizzas"),
           trailing: const Icon(Icons.navigate_next_outlined),
-          onTap: () {},
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const PizzaPage()),
+          ),
         ),
       ],
     );

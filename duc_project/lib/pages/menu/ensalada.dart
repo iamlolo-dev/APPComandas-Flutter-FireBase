@@ -1,32 +1,28 @@
 import 'package:flutter/material.dart';
 
-class TapeoPage extends StatelessWidget {
-  const TapeoPage({Key? key}) : super(key: key);
+class EnsaladaPage extends StatelessWidget {
+  const EnsaladaPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tapeo"),
+        title: const Text("Ensaladas"),
         centerTitle: true,
       ),
       body: Column(
         children: const [
           ListTile(
-            title: Text("Patatas bravas"),
+            title: Text("Ensalada cesar"),
           ),
           Divider(),
           ListTile(
-            title: Text("Nachos Mix"),
+            title: Text("Ensalada bonita"),
           ),
           Divider(),
           ListTile(
-            title: Text("Fingers Pollo"),
+            title: Text("Ensalada con queso de cabra"),
           ),
-          Divider(),
-          ListTile(
-            title: Text("Fingers queso"),
-          )
         ],
       ),
     );
