@@ -11,37 +11,45 @@ class PizzaPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: const [
+        children: [
           ListTile(
-            title: Text("BBQ"),
+            title: const Text("BBQ"),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Carbonara"),
+            title: const Text("Carbonara"),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Nórdica"),
+            title: const Text("Nórdica"),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("4 Quesos"),
+            title: const Text("4 Quesos"),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Campesina"),
+            title: const Text("Campesina"),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Sabrosa"),
+            title: const Text("Sabrosa"),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Proscuito"),
+            title: const Text("Proscuito"),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Duc 1985"),
+            title: const Text("Duc 1985"),
+            onTap: () {},
           ),
         ],
       ),
