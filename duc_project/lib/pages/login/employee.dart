@@ -15,7 +15,7 @@ class _EmployeePageState extends State<EmployeePage> {
   final firestoreInstance = FirebaseFirestore.instance;
   final Stream<QuerySnapshot> users =
       FirebaseFirestore.instance.collection('users').snapshots();
-  var sRef;
+
   List<String> num = ["id"];
   final TextEditingController numController = TextEditingController();
 
