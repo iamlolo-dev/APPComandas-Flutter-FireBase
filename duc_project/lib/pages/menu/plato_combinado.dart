@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../login/employee/home_page.dart';
+
 class CombinadosPage extends StatelessWidget {
   const CombinadosPage({Key? key}) : super(key: key);
 
@@ -11,17 +13,26 @@ class CombinadosPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: const [
+        children: [
           ListTile(
-            title: Text("Plato combinado de pechuga"),
+            title: const Text("Plato combinado de pechuga"),
+            onTap: () {
+              HomePage.arrays("Plato C Pechuga");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Plato combinado de lomo"),
+            title: const Text("Plato combinado de lomo"),
+            onTap: () {
+              HomePage.arrays("Plato C Lomo");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Plato combinado de ternera"),
+            title: const Text("Plato combinado de ternera"),
+            onTap: () {
+              HomePage.arrays("Plato C Ternera");
+            },
           ),
         ],
       ),

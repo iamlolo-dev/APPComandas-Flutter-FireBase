@@ -1,18 +1,25 @@
-import 'package:duc_project/pages/login/boss/bosshome.dart';
-import 'package:duc_project/pages/login/boss/boss_login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:duc_project/providers/auth_service.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class BossCheck extends StatefulWidget {
-  const BossCheck({Key? key}) : super(key: key);
+import 'home_page.dart';
+import 'employee_check.dart';
+
+class EmployeePage extends StatefulWidget {
+  const EmployeePage({Key? key}) : super(key: key);
 
   @override
-  State<BossCheck> createState() => _BossCheckState();
+  State<EmployeePage> createState() => _EmployeePageState();
 }
 
-class _BossCheckState extends State<BossCheck> {
+class _EmployeePageState extends State<EmployeePage> {
+  final firestoreInstance = FirebaseFirestore.instance;
+  final Stream<QuerySnapshot> users =
+      FirebaseFirestore.instance.collection('users').snapshots();
+
+  List<String> num = ["id"];
+
   FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -63,23 +70,6 @@ class _BossCheckState extends State<BossCheck> {
               ),
             ),
           ),
-          SizedBox(
-            width: 350,
-            height: 70,
-            child: TextField(
-              textAlign: TextAlign.center,
-              controller: confirmPasswordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                hintText: 'Confirm password',
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20.0),
-                  ),
-                ),
-              ),
-            ),
-          ),
           ElevatedButton(
             onPressed: () async {
               if (emailController.text == "" || passwordController.text == "") {
@@ -89,51 +79,72 @@ class _BossCheckState extends State<BossCheck> {
                     backgroundColor: Colors.red,
                   ),
                 );
-              } else if (passwordController.text !=
-                  confirmPasswordController.text) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Passwords don`t match!"),
-                    backgroundColor: Colors.red,
-                  ),
-                );
-              } else if (!EmailValidator.validate(emailController.text)) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Try with a correct mail!"),
-                    backgroundColor: Colors.red,
-                  ),
-                );
               } else {
-                User? result = await AuthService().registerUser(
-                    emailController.text, passwordController.text);
+                User? result = await AuthService()
+                    .signInUser(emailController.text, passwordController.text);
                 if (result != null) {
                   print('Success');
                   print(result.email);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const BossHome(),
+                      builder: (context) => HomePage(),
                     ),
                   );
                 }
               }
             },
-            child: const Text("Submit"),
+            child: const Text("Go!"),
           ),
           TextButton(
-            child: const Text("You already have an account? Click here."),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const BossLogin(),
-                ),
-              );
-            },
-          ),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const EmployeeCheck())),
+              child: const Text("You already haven`t an account? Click here."))
         ],
       ),
     ));
+  }
+
+  usuario(numController) {
+    StreamBuilder<QuerySnapshot>(
+      stream: users,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("A problem has ocurred"),
+            ),
+          );
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+
+        final data = snapshot.requireData;
+        return ElevatedButton(
+          onPressed: () {
+            for (var i = 0; i < data.size; i++) {
+              if (numController == data.docs[data.size]["id"]) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("The number is not correct."),
+                  ),
+                );
+              }
+            }
+          },
+          child: const Text("Go!"),
+        );
+      },
+    );
   }
 }

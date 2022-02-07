@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../login/employee/home_page.dart';
+
 class HamburguesaPage extends StatelessWidget {
   const HamburguesaPage({Key? key}) : super(key: key);
 
@@ -11,25 +13,40 @@ class HamburguesaPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: const [
+        children: [
           ListTile(
-            title: Text("Hamburguesas"),
+            title: const Text("Hamburguesa"),
+            onTap: () {
+              HomePage.arrays("Hamburguesa");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Burguer maxi"),
+            title: const Text("Burguer maxi"),
+            onTap: () {
+              HomePage.arrays("Burguer maxi");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Burguer completa"),
+            title: const Text("Burguer completa"),
+            onTap: () {
+              HomePage.arrays("Burguer completa");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Burguer Ranchera con Queso de Cabra"),
+            title: const Text("Burguer Ranchera con Queso de Cabra"),
+            onTap: () {
+              HomePage.arrays("Burguer ranchera cabra");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Burguer Ranchera con Foie y Queso Brie"),
+            title: const Text("Burguer Ranchera con Foie y Queso Brie"),
+            onTap: () {
+              HomePage.arrays("Burguer ranchera foie y brie");
+            },
           ),
         ],
       ),

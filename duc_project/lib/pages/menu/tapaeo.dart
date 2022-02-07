@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:duc_project/pages/login/employee/home_page.dart';
 import 'package:flutter/material.dart';
 
 class TapeoPage extends StatelessWidget {
-  const TapeoPage({Key? key}) : super(key: key);
-
+  TapeoPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,22 +12,36 @@ class TapeoPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: const [
+        children: [
+          // ignore: avoid_unnecessary_containers
+
           ListTile(
-            title: Text("Patatas bravas"),
+            title: const Text("Patatas bravas"),
+            onTap: () {
+              HomePage.arrays("Patatas bravas");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Nachos Mix"),
+            title: const Text("Nachos Mix"),
+            onTap: () {
+              HomePage.arrays("Nachos Mix");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Fingers Pollo"),
+            title: const Text("Fingers Pollo"),
+            onTap: () {
+              HomePage.arrays("Fingers Pollo");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Fingers queso"),
-          )
+            title: const Text("Fingers queso"),
+            onTap: () {
+              HomePage.arrays("Fingers queso");
+            },
+          ),
         ],
       ),
     );

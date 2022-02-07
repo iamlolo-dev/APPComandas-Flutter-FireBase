@@ -1,18 +1,19 @@
-import 'package:duc_project/pages/login/boss/bosshome.dart';
+import 'package:duc_project/pages/login/employee/home_page.dart';
+
 import 'package:duc_project/pages/login/boss/boss_login.dart';
 import 'package:duc_project/providers/auth_service.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class BossCheck extends StatefulWidget {
-  const BossCheck({Key? key}) : super(key: key);
+class EmployeeCheck extends StatefulWidget {
+  const EmployeeCheck({Key? key}) : super(key: key);
 
   @override
-  State<BossCheck> createState() => _BossCheckState();
+  State<EmployeeCheck> createState() => _EmployeeCheckState();
 }
 
-class _BossCheckState extends State<BossCheck> {
+class _EmployeeCheckState extends State<EmployeeCheck> {
   FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -113,7 +114,7 @@ class _BossCheckState extends State<BossCheck> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const BossHome(),
+                      builder: (context) => HomePage(),
                     ),
                   );
                 }

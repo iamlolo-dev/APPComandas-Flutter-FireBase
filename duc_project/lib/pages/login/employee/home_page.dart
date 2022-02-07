@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:duc_project/pages/menu/ensalada.dart';
 import 'package:duc_project/pages/menu/hamburguesa.dart';
 import 'package:duc_project/pages/menu/pizza.dart';
@@ -8,9 +9,21 @@ import 'package:duc_project/pages/menu/sandwich.dart';
 import 'package:duc_project/pages/menu/tapaeo.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+var array = [];
 
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+
+  static void arrays(String s) {
+    array.add(s);
+  }
+}
+
+class _HomePageState extends State<HomePage> {
+  final firestoreInstance = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +53,7 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const TapeoPage(),
+                builder: (context) => TapeoPage(),
               ),
             );
           },
@@ -64,7 +77,7 @@ class HomePage extends StatelessWidget {
           trailing: const Icon(Icons.navigate_next_outlined),
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const EnsaladaPage()),
+            MaterialPageRoute(builder: (context) => EnsaladaPage()),
           ),
         ),
         const Divider(),
@@ -97,7 +110,62 @@ class HomePage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const PizzaPage()),
           ),
         ),
+        ElevatedButton(
+          onPressed: () {
+            print(array);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: const Text("It's all?"),
+                      centerTitle: true,
+                    ),
+                    body: Column(
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            children: _crearItemCorto(),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            array.clear();
+                          },
+                          child: const Text("YES"),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+          child: const Text("Finalizar"),
+        ),
       ],
     );
+  }
+
+  List<Widget> _crearItemCorto() {
+    var widget = array
+        .map(
+          (e) => Column(
+            children: [
+              ListTile(
+                title: Text(e),
+                leading: const Icon(Icons.restaurant),
+              ),
+              const Divider(
+                indent: 60,
+                endIndent: 60,
+              ),
+            ],
+          ),
+        )
+        .toList();
+
+    return widget;
   }
 }

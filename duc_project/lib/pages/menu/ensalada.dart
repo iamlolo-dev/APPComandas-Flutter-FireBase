@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../login/employee/home_page.dart';
+
 class EnsaladaPage extends StatelessWidget {
-  const EnsaladaPage({Key? key}) : super(key: key);
+  EnsaladaPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,17 +13,26 @@ class EnsaladaPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: const [
+        children: [
           ListTile(
-            title: Text("Ensalada cesar"),
+            title: const Text("Ensalada cesar"),
+            onTap: () {
+              HomePage.arrays("Ensalada cesar");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Ensalada bonita"),
+            title: const Text("Ensalada bonita"),
+            onTap: () {
+              HomePage.arrays("Ensalada bonita");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Ensalada con queso de cabra"),
+            title: const Text("Ensalada con queso de cabra"),
+            onTap: () {
+              HomePage.arrays("Ensalada con queso de cabra");
+            },
           ),
         ],
       ),

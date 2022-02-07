@@ -1,4 +1,4 @@
-import 'package:duc_project/pages/bosshome.dart';
+import 'package:duc_project/pages/login/boss/bosshome.dart';
 import 'package:duc_project/pages/login/boss/boss_check.dart';
 import 'package:duc_project/providers/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -80,7 +80,7 @@ class _BossLoginState extends State<BossLogin> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BossHome(),
+                      builder: (context) => const BossHome(),
                     ),
                   );
                 }

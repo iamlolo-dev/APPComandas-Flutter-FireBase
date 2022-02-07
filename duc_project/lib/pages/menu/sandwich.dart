@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../login/employee/home_page.dart';
+
 class SandwichPage extends StatelessWidget {
   const SandwichPage({Key? key}) : super(key: key);
 
@@ -11,21 +13,33 @@ class SandwichPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: const [
+        children: [
           ListTile(
-            title: Text("Sandwich de pollo"),
+            title: const Text("Sandwich de pollo"),
+            onTap: () {
+              HomePage.arrays("Sandwich pollo");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Sandwich campestre"),
+            title: const Text("Sandwich campestre"),
+            onTap: () {
+              HomePage.arrays("Sandwich campestre");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Sandwich nicois"),
+            title: const Text("Sandwich nicois"),
+            onTap: () {
+              HomePage.arrays("Sandwich nicois");
+            },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text("Sandwich vegetal "),
+            title: const Text("Sandwich vegetal "),
+            onTap: () {
+              HomePage.arrays("Snadwich vegetal");
+            },
           ),
         ],
       ),

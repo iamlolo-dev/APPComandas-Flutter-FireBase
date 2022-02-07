@@ -1,5 +1,5 @@
 import 'package:duc_project/pages/login/boss/boss_login.dart';
-import 'package:duc_project/pages/login/employee.dart';
+import 'package:duc_project/pages/login/employee/employee.dart';
 import 'package:flutter/material.dart';
 
 class HallPage extends StatelessWidget {
@@ -15,23 +15,8 @@ class HallPage extends StatelessWidget {
             title: const Text("Hall"),
             centerTitle: true,
             automaticallyImplyLeading: false,
-            bottom: const TabBar(
-              tabs: [
-                Tab(
-                  text: 'Boss',
-                ),
-                Tab(
-                  text: 'Employee',
-                )
-              ],
-            ),
           ),
-          body: const TabBarView(
-            children: [
-              BossLogin(),
-              EmployeePage(),
-            ],
-          ),
+          body: EmployeePage(),
         ),
       ),
     );

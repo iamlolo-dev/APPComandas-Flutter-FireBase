@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../login/employee/home_page.dart';
+
 class PizzaPage extends StatelessWidget {
   const PizzaPage({Key? key}) : super(key: key);
 
@@ -14,42 +16,58 @@ class PizzaPage extends StatelessWidget {
         children: [
           ListTile(
             title: const Text("BBQ"),
-            onTap: () {},
+            onTap: () {
+              HomePage.arrays("BBQ");
+            },
           ),
           const Divider(),
           ListTile(
             title: const Text("Carbonara"),
-            onTap: () {},
+            onTap: () {
+              HomePage.arrays("carbonara");
+            },
           ),
           const Divider(),
           ListTile(
             title: const Text("Nórdica"),
-            onTap: () {},
+            onTap: () {
+              HomePage.arrays("Nórdica");
+            },
           ),
           const Divider(),
           ListTile(
             title: const Text("4 Quesos"),
-            onTap: () {},
+            onTap: () {
+              HomePage.arrays("4 Quesos");
+            },
           ),
           const Divider(),
           ListTile(
             title: const Text("Campesina"),
-            onTap: () {},
+            onTap: () {
+              HomePage.arrays("Campesina");
+            },
           ),
           const Divider(),
           ListTile(
             title: const Text("Sabrosa"),
-            onTap: () {},
+            onTap: () {
+              HomePage.arrays("Sabrosa");
+            },
           ),
           const Divider(),
           ListTile(
             title: const Text("Proscuito"),
-            onTap: () {},
+            onTap: () {
+              HomePage.arrays("Proscuito");
+            },
           ),
           const Divider(),
           ListTile(
             title: const Text("Duc 1985"),
-            onTap: () {},
+            onTap: () {
+              HomePage.arrays("Duc 1985");
+            },
           ),
         ],
       ),
