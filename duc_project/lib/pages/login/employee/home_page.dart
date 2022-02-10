@@ -9,16 +9,19 @@ import 'package:duc_project/pages/menu/sandwich.dart';
 import 'package:duc_project/pages/menu/tapaeo.dart';
 import 'package:flutter/material.dart';
 
-var array = [];
+Map<String, dynamic> array = {};
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 
-  static void arrays(String s) {
-    array.add(s);
+  static void arrays(String pedido) {
+    if (array.isEmpty) {
+      array.addEntries([MapEntry('order', pedido)]);
+    }
+    array.addEntries([MapEntry('order ${array.length + 1}', pedido)]);
   }
 }
 
@@ -131,9 +134,10 @@ class _HomePageState extends State<HomePage> {
                         ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).pop();
+                            firestoreInstance.collection('menu').add(array);
                             array.clear();
                           },
-                          child: const Text("YES"),
+                          child: const Text("Finalizar pedido"),
                         ),
                       ],
                     ),
@@ -148,14 +152,32 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<Widget> _crearItemCorto() {
-    var widget = array
+  _crearItemCorto() {
+    List<String> lista = [];
+    array.forEach((key, value) {
+      lista.add("$value");
+    });
+
+    var widget = lista
         .map(
           (e) => Column(
             children: [
               ListTile(
                 title: Text(e),
                 leading: const Icon(Icons.restaurant),
+                onTap: () {
+                  AlertDialog(
+                    actions: [
+                      const Text("Eliminar pedido?"),
+                      ElevatedButton(
+                        onPressed: () {
+                          lista.remove(e);
+                        },
+                        child: const Text("Yes"),
+                      ),
+                    ],
+                  );
+                },
               ),
               const Divider(
                 indent: 60,
@@ -167,5 +189,11 @@ class _HomePageState extends State<HomePage> {
         .toList();
 
     return widget;
+    // return ListView.builder(
+    //   itemBuilder: (BuildContext context, int index) {
+    //     String key = array.keys.elementAt(index);
+    //     return Column();
+    //   },
+    // );
   }
 }

@@ -16,7 +16,7 @@ class HallPage extends StatelessWidget {
             centerTitle: true,
             automaticallyImplyLeading: false,
           ),
-          body: EmployeePage(),
+          body: const EmployeePage(),
         ),
       ),
     );

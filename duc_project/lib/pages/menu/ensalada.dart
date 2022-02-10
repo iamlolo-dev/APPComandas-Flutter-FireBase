@@ -16,8 +16,24 @@ class EnsaladaPage extends StatelessWidget {
         children: [
           ListTile(
             title: const Text("Ensalada cesar"),
-            onTap: () {
-              HomePage.arrays("Ensalada cesar");
+            onTap: () async {
+              TextEditingController opciones = TextEditingController();
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    actions: [
+                      TextField(
+                        controller: opciones,
+                        onEditingComplete: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+              HomePage.arrays("Ensalada cesar (${opciones.text})");
             },
           ),
           const Divider(),
