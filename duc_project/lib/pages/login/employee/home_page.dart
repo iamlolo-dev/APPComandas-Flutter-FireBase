@@ -19,8 +19,8 @@ class HomePage extends StatefulWidget {
 
   static void arrays(String pedido) {
     if (array.isEmpty) {
-      array.addEntries([MapEntry('order', pedido)]);
-    }
+      array.addEntries([MapEntry('order 1', pedido)]);
+    } else
     array.addEntries([MapEntry('order ${array.length + 1}', pedido)]);
   }
 }
@@ -127,13 +127,13 @@ class _HomePageState extends State<HomePage> {
                     body: Column(
                       children: [
                         Expanded(
-                          child: _crearItemCorto(),
+                          child: _generarListView(),
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pop();
                             firestoreInstance.collection('menu').add(array);
                             array.clear();
+                            Navigator.of(context).pop();
                           },
                           child: const Text("Finalizar pedido"),
                         ),
@@ -150,8 +150,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  ListView _crearItemCorto() {
-    final lista = [];
+  ListView _generarListView() {
+    final List<String> lista = [];
     array.forEach(
       (key, value) {
         lista.add("$key: $value");
@@ -159,25 +159,17 @@ class _HomePageState extends State<HomePage> {
     );
 
     // return widget;
-    return Future<String>ListView.builder(
+    return ListView.builder(
       itemCount: lista.length,
       itemBuilder: (BuildContext context, int index) {
-        final pedido = lista[index];
-        final llave = pedido.split(' ');
-        final llave1 = llave[0];
         return Dismissible(
-          key: Key(pedido),
+          key: Key(lista[index]),
           direction: DismissDirection.endToStart,
           onDismissed: (direction) {
-            setState(
-              () {
-                lista.removeAt(pedido);
-                array.remove(llave1);
-              },
-            );
+            setState(() => array.remove("order " + index.toString()));
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('$pedido eliminado'),
+                content: Text('Order $index eliminado.'),
               ),
             );
           },
