@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TapeoPage(),
+                builder: (context) => const TapeoPage(),
               ),
             );
           },
@@ -127,9 +127,7 @@ class _HomePageState extends State<HomePage> {
                     body: Column(
                       children: [
                         Expanded(
-                          child: ListView(
-                            children: _crearItemCorto(),
-                          ),
+                          child: _crearItemCorto(),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -152,48 +150,45 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _crearItemCorto() {
-    List<String> lista = [];
-    array.forEach((key, value) {
-      lista.add("$value");
-    });
+  ListView _crearItemCorto() {
+    final lista = [];
+    array.forEach(
+      (key, value) {
+        lista.add("$key: $value");
+      },
+    );
 
-    var widget = lista
-        .map(
-          (e) => Column(
-            children: [
-              ListTile(
-                title: Text(e),
-                leading: const Icon(Icons.restaurant),
-                onTap: () {
-                  AlertDialog(
-                    actions: [
-                      const Text("Eliminar pedido?"),
-                      ElevatedButton(
-                        onPressed: () {
-                          lista.remove(e);
-                        },
-                        child: const Text("Yes"),
-                      ),
-                    ],
-                  );
-                },
+    // return widget;
+    return Future<String>ListView.builder(
+      itemCount: lista.length,
+      itemBuilder: (BuildContext context, int index) {
+        final pedido = lista[index];
+        final llave = pedido.split(' ');
+        final llave1 = llave[0];
+        return Dismissible(
+          key: Key(pedido),
+          direction: DismissDirection.endToStart,
+          onDismissed: (direction) {
+            setState(
+              () {
+                lista.removeAt(pedido);
+                array.remove(llave1);
+              },
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('$pedido eliminado'),
               ),
-              const Divider(
-                indent: 60,
-                endIndent: 60,
-              ),
-            ],
+            );
+          },
+          background: Container(
+            color: Colors.red,
           ),
-        )
-        .toList();
-
-    return widget;
-    // return ListView.builder(
-    //   itemBuilder: (BuildContext context, int index) {
-    //     String key = array.keys.elementAt(index);
-    //     return Column();
-    //   },
-    // );
+          child: ListTile(
+            title: Text(lista[index]),
+          ),
+        );
+      },
+    );
   }
 }

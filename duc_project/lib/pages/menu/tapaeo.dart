@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:duc_project/pages/login/employee/home_page.dart';
 import 'package:flutter/material.dart';
 
 class TapeoPage extends StatelessWidget {
-  TapeoPage({Key? key}) : super(key: key);
+  const TapeoPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
