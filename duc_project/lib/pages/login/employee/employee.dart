@@ -3,7 +3,7 @@ import 'package:duc_project/providers/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'home_page.dart';
+import '../../home_page.dart';
 import 'employee_check.dart';
 
 class EmployeePage extends StatefulWidget {
@@ -14,17 +14,13 @@ class EmployeePage extends StatefulWidget {
 }
 
 class _EmployeePageState extends State<EmployeePage> {
-  final firestoreInstance = FirebaseFirestore.instance;
-  final Stream<QuerySnapshot> users =
-      FirebaseFirestore.instance.collection('users').snapshots();
-
-  List<String> num = ["id"];
-
+  //Instancia Firebase para la funcion Authentication
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  //Controladores para el texto introducido en los TextField
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +29,18 @@ class _EmployeePageState extends State<EmployeePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Image(
+            //Logo del Duc
             image: AssetImage('assets/Duclogo.jpeg'),
           ),
           const Divider(),
+          //Box para introducir el Email
           SizedBox(
             width: 350,
             height: 70,
             child: TextField(
               textAlign: TextAlign.center,
+
+              //Controlamos el texto que añadimos para pasarlo posterirormente a Firebase
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
@@ -53,11 +53,13 @@ class _EmployeePageState extends State<EmployeePage> {
               ),
             ),
           ),
+          //Box para introducir el password
           SizedBox(
             width: 350,
             height: 70,
             child: TextField(
               textAlign: TextAlign.center,
+              //Controlamos el texto que añadimos para pasarlo posterirormente a Firebase
               controller: passwordController,
               obscureText: true,
               decoration: const InputDecoration(
@@ -70,6 +72,7 @@ class _EmployeePageState extends State<EmployeePage> {
               ),
             ),
           ),
+          //Boton para comprobar los datos y, si concuerdan enviarlos a Firebase
           ElevatedButton(
             onPressed: () async {
               if (emailController.text == "" || passwordController.text == "") {
@@ -80,6 +83,7 @@ class _EmployeePageState extends State<EmployeePage> {
                   ),
                 );
               } else {
+                //Método que nos ayuda para el check del correo y password ya cotejadas en la Dartabase Auth
                 User? result = await AuthService()
                     .signInUser(emailController.text, passwordController.text);
                 if (result != null) {
@@ -96,6 +100,7 @@ class _EmployeePageState extends State<EmployeePage> {
             },
             child: const Text("Go!"),
           ),
+          //Cambiar a la ventana de creación de cuenta
           TextButton(
               onPressed: () => Navigator.push(
                   context,
@@ -105,46 +110,5 @@ class _EmployeePageState extends State<EmployeePage> {
         ],
       ),
     ));
-  }
-
-  usuario(numController) {
-    StreamBuilder<QuerySnapshot>(
-      stream: users,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("A problem has ocurred"),
-            ),
-          );
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        }
-
-        final data = snapshot.requireData;
-        return ElevatedButton(
-          onPressed: () {
-            for (var i = 0; i < data.size; i++) {
-              if (numController == data.docs[data.size]["id"]) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(),
-                  ),
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("The number is not correct."),
-                  ),
-                );
-              }
-            }
-          },
-          child: const Text("Go!"),
-        );
-      },
-    );
   }
 }

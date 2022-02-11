@@ -1,8 +1,15 @@
-import 'package:duc_project/pages/login/employee/home_page.dart';
+import 'package:duc_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class TapeoPage extends StatelessWidget {
-  const TapeoPage({Key? key}) : super(key: key);
+  //Listado del menu
+  var listado = [
+    'Patatas bravas',
+    'Nachos mix',
+    'Fingers pollo',
+    'Fingers queso'
+  ];
+  TapeoPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,37 +19,47 @@ class TapeoPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // ignore: avoid_unnecessary_containers
-
-          ListTile(
-            title: const Text("Patatas bravas"),
-            onTap: () {
-              HomePage.arrays("Patatas bravas");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Nachos Mix"),
-            onTap: () {
-              HomePage.arrays("Nachos Mix");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Fingers Pollo"),
-            onTap: () {
-              HomePage.arrays("Fingers Pollo");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Fingers queso"),
-            onTap: () {
-              HomePage.arrays("Fingers queso");
-            },
+          Expanded(
+            child: _generarListView(),
           ),
         ],
       ),
+    );
+  }
+
+  ListView _generarListView() {
+    return ListView.builder(
+      itemCount: listado.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          title: Text(listado[index]),
+          //onTap async para que el showDialow espere a cerrarse para que el controller almacene la info al 'onEditComplete'
+          onTap: () async {
+            //Controlador para el TextField
+            TextEditingController opciones = TextEditingController();
+            //Método para abrir pantalla emergente
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                //Pantalla emergente
+                return AlertDialog(
+                  actions: [
+                    //Casilla para añadir la info adicional del pedido
+                    TextField(
+                      controller: opciones,
+                      onEditingComplete: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+            //Añadimos lo seleccionado al Map de home_page.dart
+            HomePage.arrays("${listado[index]} (${opciones.text})");
+          },
+        );
+      },
     );
   }
 }

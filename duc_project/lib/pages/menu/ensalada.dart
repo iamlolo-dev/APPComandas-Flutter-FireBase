@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../login/employee/home_page.dart';
+import '../home_page.dart';
 
 class EnsaladaPage extends StatelessWidget {
+  var listado = [
+    'Ensalada Cesar',
+    'Ensalada bonita',
+    'Ensalada con queso de cabra'
+  ];
   EnsaladaPage({Key? key}) : super(key: key);
 
   @override
@@ -14,44 +19,48 @@ class EnsaladaPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ListTile(
-            title: const Text("Ensalada cesar"),
-            onTap: () async {
-              TextEditingController opciones = TextEditingController();
-              await showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    actions: [
-                      TextField(
-                        controller: opciones,
-                        onEditingComplete: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-              HomePage.arrays("Ensalada cesar (${opciones.text})");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Ensalada bonita"),
-            onTap: () {
-              HomePage.arrays("Ensalada bonita");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Ensalada con queso de cabra"),
-            onTap: () {
-              HomePage.arrays("Ensalada con queso de cabra");
-            },
+          Expanded(
+            child: _generarListView(),
           ),
         ],
       ),
+    );
+  }
+
+  //Generador del ListView
+  ListView _generarListView() {
+    return ListView.builder(
+      itemCount: listado.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          title: Text(listado[index]),
+          //onTap async para que el showDialow espere a cerrarse para que el controller almacene la info al 'onEditComplete'
+          onTap: () async {
+            //Controlador para el TextField
+            TextEditingController opciones = TextEditingController();
+            //Método para abrir pantalla emergente
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                //Pantalla emergente
+                return AlertDialog(
+                  actions: [
+                    //Casilla para añadir la info adicional del pedido
+                    TextField(
+                      controller: opciones,
+                      onEditingComplete: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+            //Añadimos lo seleccionado al Map de home_page.dart
+            HomePage.arrays("${listado[index]} (${opciones.text})");
+          },
+        );
+      },
     );
   }
 }

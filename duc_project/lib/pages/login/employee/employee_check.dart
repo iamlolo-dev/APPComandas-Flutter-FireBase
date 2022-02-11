@@ -1,4 +1,4 @@
-import 'package:duc_project/pages/login/employee/home_page.dart';
+import 'package:duc_project/pages/home_page.dart';
 
 import 'package:duc_project/pages/login/boss/boss_login.dart';
 import 'package:duc_project/providers/auth_service.dart';
@@ -13,8 +13,12 @@ class EmployeeCheck extends StatefulWidget {
   State<EmployeeCheck> createState() => _EmployeeCheckState();
 }
 
+//Registro del empleado
 class _EmployeeCheckState extends State<EmployeeCheck> {
+  //Instancia de la base de datos para poder utilizar Authentication Firebase
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  //Controladores para el contenido de la TextField
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -26,10 +30,12 @@ class _EmployeeCheckState extends State<EmployeeCheck> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          //Logo del restaurante
           const Image(
             image: AssetImage('assets/Duclogo.jpeg'),
           ),
           const Divider(),
+          //Box del email
           SizedBox(
             width: 350,
             height: 70,
@@ -47,6 +53,8 @@ class _EmployeeCheckState extends State<EmployeeCheck> {
               ),
             ),
           ),
+
+          //Box del password
           SizedBox(
             width: 350,
             height: 70,
@@ -64,6 +72,8 @@ class _EmployeeCheckState extends State<EmployeeCheck> {
               ),
             ),
           ),
+
+          //Box delconfirm password
           SizedBox(
             width: 350,
             height: 70,
@@ -81,6 +91,8 @@ class _EmployeeCheckState extends State<EmployeeCheck> {
               ),
             ),
           ),
+
+          //Boton para enviar los datos de las TextField anteriores al Firestore con ayuda de los controllers.
           ElevatedButton(
             onPressed: () async {
               if (emailController.text == "" || passwordController.text == "") {
@@ -122,6 +134,8 @@ class _EmployeeCheckState extends State<EmployeeCheck> {
             },
             child: const Text("Submit"),
           ),
+
+          //Botón para cambiar a la pantalla de logeo si estas registrado ya
           TextButton(
             child: const Text("You already have an account? Click here."),
             onPressed: () {

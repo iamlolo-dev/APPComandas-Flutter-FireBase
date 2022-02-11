@@ -20,8 +20,9 @@ class HomePage extends StatefulWidget {
   static void arrays(String pedido) {
     if (array.isEmpty) {
       array.addEntries([MapEntry('order 1', pedido)]);
-    } else
+    } else {
       array.addEntries([MapEntry('order ${array.length + 1}', pedido)]);
+    }
   }
 }
 
@@ -42,9 +43,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //Tipos de comida: tapeo, ensalada, hamburguesa, sandwich, pizza, platos combinados
   Widget column(context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         ListTile(
           leading: const Icon(
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const TapeoPage(),
+                builder: (context) => TapeoPage(),
               ),
             );
           },
@@ -70,7 +72,7 @@ class _HomePageState extends State<HomePage> {
           trailing: const Icon(Icons.navigate_next_outlined),
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const HamburguesaPage()),
+            MaterialPageRoute(builder: (context) => HamburguesaPage()),
           ),
         ),
         const Divider(),
@@ -90,7 +92,7 @@ class _HomePageState extends State<HomePage> {
           trailing: const Icon(Icons.navigate_next_outlined),
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SandwichPage()),
+            MaterialPageRoute(builder: (context) => SandwichPage()),
           ),
         ),
         const Divider(),
@@ -100,7 +102,7 @@ class _HomePageState extends State<HomePage> {
           trailing: const Icon(Icons.navigate_next_outlined),
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CombinadosPage()),
+            MaterialPageRoute(builder: (context) => CombinadosPage()),
           ),
         ),
         const Divider(),
@@ -110,7 +112,7 @@ class _HomePageState extends State<HomePage> {
           trailing: const Icon(Icons.navigate_next_outlined),
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const PizzaPage()),
+            MaterialPageRoute(builder: (context) => PizzaPage()),
           ),
         ),
         ElevatedButton(
@@ -150,6 +152,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //Menú de finalizar pedido, función de enviar a Database o eliminar 'order'.
   ListView _generarListView() {
     final List<String> lista = [];
     array.forEach(
@@ -158,7 +161,6 @@ class _HomePageState extends State<HomePage> {
       },
     );
 
-    // return widget;
     return ListView.builder(
       itemCount: lista.length,
       itemBuilder: (BuildContext context, int index) {

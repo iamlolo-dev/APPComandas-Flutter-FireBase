@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../login/employee/home_page.dart';
+import '../home_page.dart';
 
 class PizzaPage extends StatelessWidget {
-  const PizzaPage({Key? key}) : super(key: key);
+  var listado = [
+    'BBQ',
+    'Carbonara',
+    'Nórdica',
+    '4 quesos',
+    'Campesina',
+    'proscuito'
+  ];
+  PizzaPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,63 +22,47 @@ class PizzaPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ListTile(
-            title: const Text("BBQ"),
-            onTap: () {
-              HomePage.arrays("BBQ");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Carbonara"),
-            onTap: () {
-              HomePage.arrays("carbonara");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Nórdica"),
-            onTap: () {
-              HomePage.arrays("Nórdica");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("4 Quesos"),
-            onTap: () {
-              HomePage.arrays("4 Quesos");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Campesina"),
-            onTap: () {
-              HomePage.arrays("Campesina");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Sabrosa"),
-            onTap: () {
-              HomePage.arrays("Sabrosa");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Proscuito"),
-            onTap: () {
-              HomePage.arrays("Proscuito");
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Duc 1985"),
-            onTap: () {
-              HomePage.arrays("Duc 1985");
-            },
+          Expanded(
+            child: _generarListView(),
           ),
         ],
       ),
+    );
+  }
+
+  ListView _generarListView() {
+    return ListView.builder(
+      itemCount: listado.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          title: Text(listado[index]),
+          //onTap async para que el showDialow espere a cerrarse para que el controller almacene la info al 'onEditComplete'
+          onTap: () async {
+            //Controlador para el TextField
+            TextEditingController opciones = TextEditingController();
+            //Método para abrir pantalla emergente
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                //Pantalla emergente
+                return AlertDialog(
+                  actions: [
+                    //Casilla para añadir la info adicional del pedido
+                    TextField(
+                      controller: opciones,
+                      onEditingComplete: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+            //Añadimos lo seleccionado al Map de home_page.dart
+            HomePage.arrays("${listado[index]} (${opciones.text})");
+          },
+        );
+      },
     );
   }
 }
