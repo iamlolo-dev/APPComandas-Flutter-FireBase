@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
     if (array.isEmpty) {
       array.addEntries([MapEntry('order 1', pedido)]);
     } else
-    array.addEntries([MapEntry('order ${array.length + 1}', pedido)]);
+      array.addEntries([MapEntry('order ${array.length + 1}', pedido)]);
   }
 }
 
