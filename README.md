@@ -24,6 +24,13 @@ Imagenes finales de la app
 + Visual Studio Code
 + Emulador de smartphone
 
+## Funcionalidad básica
+App creada para agilizar la toma de notas por parte de los camareros. Simplemente nos registramos, luego llegamos a la pantalla de menú, elegimos los platos y, al darle finalizar, nos encargamos de que todo este en orden para posteriormente enviar el pedido a la cocina.
+
++ Para registrarnos es necesario tener un correo electróinico.
++ Para añadir un plato, pulsamos en una de las tarjetas que se nos muestra en la pantalla de menú, elegimos el plato y añadimos objeciones sobre él si las tiene. Si no pulsamos Enter.
++ Para eliminar un plato de la lista se desliza de derecha a izquierda.
+
 ### Inconvenientes
 Finalmente, no hemos implantado un Login personalizado para los empleados.
  
