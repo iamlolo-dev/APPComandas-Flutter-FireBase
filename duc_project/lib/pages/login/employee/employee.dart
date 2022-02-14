@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:duc_project/providers/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +84,7 @@ class _EmployeePageState extends State<EmployeePage> {
                     ),
                   );
                 } else {
-                  //Método que nos ayuda para el check del correo y password ya cotejadas en la Dartabase Auth
+                  //Método que nos ayuda para el check del correo y password ya cotejadas en la Database con Auth
                   User? result = await AuthService().signInUser(
                       emailController.text, passwordController.text);
                   if (result != null) {
@@ -94,7 +93,7 @@ class _EmployeePageState extends State<EmployeePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomePage(),
+                        builder: (context) => const HomePage(),
                       ),
                     );
                   }
