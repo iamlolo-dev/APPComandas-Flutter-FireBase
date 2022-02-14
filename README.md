@@ -37,5 +37,5 @@ Finalmente, no hemos implantado un Login personalizado para los empleados.
 Seria una mejora añadida al proyecto en un futuro, como también una lista con los pedidos realizados, y mostrando cuando están listos para servir y, posteriormente, eliminandolos de la lista.
 
 ### Bibliografia
-Página web de los widgets de Flutter: https://docs.flutter.dev/development/ui/widgets
-Stackoverflow: https://es.stackoverflow.com
++ Página web de los widgets de Flutter: https://docs.flutter.dev/development/ui/widgets
++ Stackoverflow: https://es.stackoverflow.com
