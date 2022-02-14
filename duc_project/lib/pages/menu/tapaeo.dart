@@ -18,6 +18,8 @@ class TapeoPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
+        //Donde desplegamos el listView, lo queremos en columna, y como no nos deja añadir el ListView directamente como 'children', lo añadimos a un Expanded.
+        //Expanded sirve para adecuar el tamaño del objeto al necesario para adaptarlo a la pantalla.
         children: [
           Expanded(
             child: _generarListView(),
@@ -56,7 +58,13 @@ class TapeoPage extends StatelessWidget {
               },
             );
             //Añadimos lo seleccionado al Map de home_page.dart
-            HomePage.arrays("${listado[index]} (${opciones.text})");
+            //Si no tenemos cambios en la comida se añade el plato simplemente. Si tenemos cambios en el controller del TextField
+            //visto arriba y lo añadimos a la Database junto con el cambio.
+            if (opciones.text.isEmpty) {
+              HomePage.arrays(listado[index]);
+            } else {
+              HomePage.arrays("${listado[index]} (${opciones.text})");
+            }
           },
         );
       },

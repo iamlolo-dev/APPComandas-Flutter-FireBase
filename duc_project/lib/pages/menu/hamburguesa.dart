@@ -60,8 +60,15 @@ class HamburguesaPage extends StatelessWidget {
                 );
               },
             );
+
             //Añadimos lo seleccionado al Map de home_page.dart
-            HomePage.arrays("${listado[index]} (${opciones.text})");
+            //Si no tenemos cambios en la comida se añade el plato simplemente. Si por ejemplo, no queremos la hamburguesa con pepinillos se introduce en el controller del TextField
+            //visto arriba y lo añadimos a la Database junto con el cambio.
+            if (opciones.text.isEmpty) {
+              HomePage.arrays(listado[index]);
+            } else {
+              HomePage.arrays("${listado[index]} (${opciones.text})");
+            }
           },
         );
       },

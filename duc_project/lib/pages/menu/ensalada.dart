@@ -47,6 +47,7 @@ class EnsaladaPage extends StatelessWidget {
                   actions: [
                     //Casilla para añadir la info adicional del pedido
                     TextField(
+                      //Controla cada vez que se edita la casilla, es decir, a medida que añadimos texto lo va guardando en la variable opciones
                       controller: opciones,
                       onEditingComplete: () {
                         Navigator.of(context).pop();
@@ -57,7 +58,13 @@ class EnsaladaPage extends StatelessWidget {
               },
             );
             //Añadimos lo seleccionado al Map de home_page.dart
-            HomePage.arrays("${listado[index]} (${opciones.text})");
+            //Si no tenemos cambios en la comida se añade el plato simplemente. Si por ejemplo, no queremos la ensalada aliñada se introduce en el controller del TextField visto arriba
+            //y lo añadimos a la Database junto con el cambio.
+            if (opciones.text.isEmpty) {
+              HomePage.arrays(listado[index]);
+            } else {
+              HomePage.arrays("${listado[index]} (${opciones.text})");
+            }
           },
         );
       },
