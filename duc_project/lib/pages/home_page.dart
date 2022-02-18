@@ -135,6 +135,7 @@ class _HomePageState extends State<HomePage> {
                       title: const Text("It's all?"),
                       centerTitle: true,
                     ),
+                    //Mostramos el pedido hecho
                     body: Column(
                       children: [
                         Expanded(
@@ -166,9 +167,11 @@ class _HomePageState extends State<HomePage> {
 
   //Menú de finalizar pedido, función de enviar a Database o eliminar 'order'.
   ListView _generarListView() {
+    //Convertimos el Map en List para poder manejar mejor los datos
     final List<String> lista = [];
     array.forEach(
       (key, value) {
+        //En cada posición de la lista añado clave y valor para para tenerlo parejo
         lista.add("$key: $value");
       },
     );
@@ -194,7 +197,7 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           },
-          //Color que se muestra al deslizar
+          //Color que se muestra al deslizar de fondo
           background: Container(
             color: Colors.red,
           ),
